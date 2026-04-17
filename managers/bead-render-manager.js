@@ -69,7 +69,11 @@ export function createBeadRenderManager(config) {
   function refreshMetrics() {
     const viewportHeight = beadsColumnEl.clientHeight;
     const viewportWidth = beadsColumnEl.clientWidth;
-    if (!Number.isFinite(viewportHeight) || viewportHeight <= 0) return;
+    if (!Number.isFinite(viewportHeight) || viewportHeight <= 0) {
+      // Keep pool alive even if first mobile layout pass reports zero height.
+      syncBeadPool();
+      return;
+    }
 
     beadSizePx = getResponsiveBeadSize(viewportWidth);
     beadPitch = beadSizePx + beadGapPx;
@@ -83,7 +87,14 @@ export function createBeadRenderManager(config) {
   }
 
   function renderNow(wheelPosition) {
+    if (beads.length === 0) {
+      syncBeadPool();
+    }
     const viewportHeight = beadsColumnEl.clientHeight;
+    if (!Number.isFinite(viewportHeight) || viewportHeight <= 0) {
+      // Skip until layout is ready; next resize/RAF render will position correctly.
+      return;
+    }
     renderBeadLayout({
       beads,
       knots,
@@ -100,6 +111,9 @@ export function createBeadRenderManager(config) {
       lowPowerMode: isCoarsePointer(),
     });
   }
+
+  // Ensure initial nodes exist before the first layout pass.
+  syncBeadPool();
 
   function requestRender(wheelPosition) {
     pendingRenderWheelIndex = wheelPosition;
