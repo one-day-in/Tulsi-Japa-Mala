@@ -38,9 +38,11 @@ body.round-loader-open .app {
 }
 
 .round-loader-backdrop {
-  background: linear-gradient(160deg, rgba(255, 255, 255, 0.42) 0%, rgba(248, 244, 236, 0.34) 35%, rgba(234, 228, 216, 0.3) 100%), rgba(24, 18, 12, 0.34);
-  backdrop-filter: blur(4px) saturate(1.18) brightness(1.08);
-  -webkit-backdrop-filter: blur(4px) saturate(1.18) brightness(1.08);
+  background:
+    radial-gradient(circle at center, #4b3626 0%, #2a1d13 46%, #1a120c 100%),
+    #1a120c;
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
   z-index: 40;
 }
 
@@ -190,10 +192,10 @@ body.round-loader-open .app {
   padding: 24px;
   perspective: 1200px;
   background:
-    radial-gradient(circle at center, rgba(255, 248, 234, 0.22) 0%, rgba(255, 248, 234, 0.04) 38%, rgba(21, 14, 9, 0.72) 100%),
-    rgba(24, 16, 10, 0.78);
-  backdrop-filter: blur(22px) saturate(1.04) brightness(0.86);
-  -webkit-backdrop-filter: blur(22px) saturate(1.04) brightness(0.86);
+    radial-gradient(circle at center, #4d3928 0%, #281c13 42%, #17100b 100%),
+    #17100b;
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
   opacity: 1;
   visibility: visible;
   transition: opacity 420ms ease, visibility 0s linear 420ms;
@@ -299,4 +301,55 @@ body.round-loader-open .app {
     backdrop-filter: none;
     -webkit-backdrop-filter: none;
   }
+}
+
+.orientation-lock-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 120;
+  display: none;
+  place-items: center;
+  gap: 12px;
+  padding: 22px;
+  background:
+    radial-gradient(circle at center, #4a3524 0%, #2b1d13 48%, #1a120c 100%),
+    #1a120c;
+}
+
+.orientation-lock-backdrop.is-visible {
+  display: grid;
+}
+
+.orientation-lock-panel,
+.orientation-safari-panel {
+  width: min(560px, 100%);
+  border-radius: 18px;
+  background:
+    linear-gradient(160deg, rgba(255, 249, 239, 0.96) 0%, rgba(245, 228, 198, 0.94) 100%),
+    rgba(255, 247, 232, 0.92);
+  border: 1px solid rgba(140, 99, 58, 0.28);
+  box-shadow:
+    0 16px 30px rgba(36, 22, 7, 0.25),
+    inset 0 1px 0 rgba(255, 243, 220, 0.65);
+  padding: 16px 16px 14px;
+}
+
+.orientation-lock-title,
+.orientation-safari-title {
+  margin: 0 0 8px;
+  color: #3f2e1d;
+  font-size: 18px;
+  line-height: 1.2;
+}
+
+.orientation-lock-text,
+.orientation-safari-text {
+  margin: 0;
+  color: #5a4631;
+  font-size: 14px;
+  line-height: 1.45;
+}
+
+body.orientation-lock-open .app {
+  pointer-events: none;
 }

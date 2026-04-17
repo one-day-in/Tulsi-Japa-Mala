@@ -1,34 +1,47 @@
 # Tulsi Japa Mala
 
-Односторінковий мобільно-орієнтований вебпроєкт для підрахунку повторів (кліків) з раундами по 108.
+Мобільно-орієнтований односторінковий вебзастосунок для джапа-підрахунку.
 
-## Ціль
-- Мати один екран без скролу сторінки.
-- У `header` розмістити панель керування.
-- У `body` показувати лічильник у двох режимах:
-  - `Classic`: кнопки `+` і `-` + дисплей числа.
-  - `Beads`: вертикальна стрічка бусин, де жест вниз = `+1`, вгору = `-1`.
+## Основне
+- Режим бусин (вертикальний wheel-like скрол, 1 свайп = 1 крок).
+- Раунди по 108 бусин.
+- Стан зберігається в `localStorage`.
+- Підтримка звукових режимів.
+- Адаптований UI для мобільних і desktop.
 
-## Базова логіка
-- `countInRound`: значення в межах `0..107`.
-- `round`: номер раунду, стартує з `1`.
-- Крок `+1`:
-  - якщо `countInRound` стає `108`, тоді `round += 1`, `countInRound = 0`.
-- Крок `-1`:
-  - якщо `countInRound > 0`, просто `countInRound -= 1`.
-  - якщо `countInRound == 0` і `round > 1`, тоді `round -= 1`, `countInRound = 107`.
-  - якщо `round == 1` і `countInRound == 0`, значення не змінюється.
+## Технічний стек
+- Vite 5
+- Vanilla JS (модульна архітектура)
+- CSS (розбитий на модулі через `styles.css` як агрегатор)
+
+## Локальний запуск
+```bash
+npm ci
+npm run dev
+```
+
+## Продакшн збірка
+```bash
+npm run build
+npm run preview
+```
+
+## GitHub Pages
+Деплой налаштований через GitHub Actions:
+- Workflow: `.github/workflows/deploy-pages.yml`
+- Тригер: пуш у `main`
+- Артефакт: `dist/`
+
+Після першого пушу:
+1. У GitHub репозиторії відкрий `Settings -> Pages`.
+2. Переконайся, що Source = `GitHub Actions`.
+3. Дочекайся завершення workflow `Deploy to GitHub Pages`.
+
+Очікувана адреса:
+- `https://one-day-in.github.io/Tulsi-Japa-Mala/`
 
 ## Документація
 - [Product Brief](./docs/product-brief.md)
 - [Technical Plan](./docs/technical-plan.md)
 - [Data Model](./docs/data-model.md)
 - [Open Questions](./docs/open-questions.md)
-
-## Поточний статус
-- Реалізовано базовий UI:
-  - `index.html`
-  - `styles.css`
-  - `app.js`
-- Підтримано 2 режими (`Classic`, `Beads`), round logic `108`, повний reset.
-- Збереження стану в `localStorage`.

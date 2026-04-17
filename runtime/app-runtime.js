@@ -10,6 +10,7 @@ import { getSoundIcon } from "../ui/svg-icons.js";
 import { animateValue } from "../engine/bead-motion.js";
 import { computeSettleTarget } from "../engine/wheel-engine.js";
 import { getDomElements } from "../ui/dom-elements.js";
+import { renderModalOptionTemplates } from "../ui/template-renderer.js";
 import { bindAppEvents, bindZoomGuards } from "../core/app-event-binder.js";
 import { createAudioFlowController } from "../flows/audio-flow.js";
 import { createUIFlowController } from "../flows/ui-flow.js";
@@ -17,6 +18,7 @@ import { createGestureFlowController } from "../flows/gesture-flow.js";
 import { createSettingsFlowController } from "../flows/settings-flow.js";
 import { ensureRuntimeRoundFlowController } from "./runtime-round-flow-init.js";
 import { runBootstrapSequence } from "./runtime-bootstrap.js";
+import { initOrientationGuard } from "./orientation-guard.js";
 import {
   ACTIVE_BEAD_MIN_INDEX,
   ACTIVE_BEAD_MAX_INDEX,
@@ -79,6 +81,7 @@ const I18N = I18NData;
 const i18nManager = initI18nManager(I18N);
 const t = (path) => i18nManager.t(path);
 
+renderModalOptionTemplates();
 const els = getDomElements();
 const state = loadRuntimeState({
   storageKey: STORAGE_KEY,
@@ -124,6 +127,7 @@ beadRenderManager.refreshMetrics();
 beadRenderManager.requestRender(wheelIndex);
 actions.render();
 initStartupLoader();
+initOrientationGuard({ t });
 
 function bootstrapRuntime() {
   runBootstrapSequence({

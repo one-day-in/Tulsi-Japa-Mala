@@ -235,6 +235,8 @@ export function initRuntimeManagers(params) {
       beadStyleOptionsEl: els.beadStyleOptions,
       backgroundStyleOptionsEl: els.backgroundStyleOptions,
       soundModeOptionsEl: els.soundModeOptions,
+      beadStyleBtnEl: els.beadStyleBtn,
+      resetBtnEl: els.resetBtn,
       soundModeBtnEl: els.soundModeBtn,
       roundLoaderSpinnerEl: els.roundLoaderSpinner,
       nextRoundInlineBtnEl: els.nextRoundInlineBtn,

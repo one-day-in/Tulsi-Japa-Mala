@@ -227,6 +227,7 @@ function initAudioAndPreload(ctx) {
 function initBindings(ctx) {
   ctx.bindZoomGuards();
   ctx.getControlsManager().renderSoundModeOptionIcons();
+  ctx.getControlsManager().renderHeaderButtonIcons();
   ctx.getControlsManager().renderRoundLoaderIcon();
   ctx.getControlsManager().renderNextRoundButtonIcon();
 

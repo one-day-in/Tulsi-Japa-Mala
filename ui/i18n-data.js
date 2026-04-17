@@ -47,6 +47,12 @@ export const I18NData = {
       beadStylePrefix: "Стиль бусин",
       soundModePrefix: "Режим звуку",
     },
+    orientation: {
+      title: "Горизонтальний режим не підтримується",
+      text: "Будь ласка, поверніть пристрій у вертикальний режим, щоб продовжити.",
+      safariTitle: "Safari: додатково зафіксуйте орієнтацію",
+      safariText: "Для кращої стабільності увімкніть ручне блокування автоповороту екрана в iPhone Control Center.",
+    },
   },
   ru: {
     title: "Tulsi Japa Mala",
@@ -94,6 +100,12 @@ export const I18NData = {
       beadStylePrefix: "Стиль бусин",
       soundModePrefix: "Режим звука",
     },
+    orientation: {
+      title: "Горизонтальный режим не поддерживается",
+      text: "Пожалуйста, поверните устройство в вертикальный режим, чтобы продолжить.",
+      safariTitle: "Safari: дополнительно зафиксируйте ориентацию",
+      safariText: "Для лучшей стабильности включите ручную блокировку автоповорота экрана в iPhone Control Center.",
+    },
   },
   en: {
     title: "Tulsi Japa Mala",
@@ -140,6 +152,12 @@ export const I18NData = {
     dynamic: {
       beadStylePrefix: "Bead style",
       soundModePrefix: "Sound mode",
+    },
+    orientation: {
+      title: "Landscape mode is not supported",
+      text: "Please rotate your device to portrait mode to continue.",
+      safariTitle: "Safari: lock orientation manually",
+      safariText: "For better stability, enable manual screen rotation lock in iPhone Control Center.",
     },
   },
 };
