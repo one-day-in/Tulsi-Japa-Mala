@@ -1,0 +1,45 @@
+@media (min-width: 768px) {
+  .app {
+    max-width: 640px;
+    margin: 0 auto;
+    border-left: 1px solid #deceb5;
+    border-right: 1px solid #deceb5;
+  }
+}
+
+@media (pointer: coarse) {
+  .app::before {
+    /* iOS Safari anti-flicker: keep background layer максимально простим */
+    background-image: var(--page-bg-image);
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+  }
+
+  .beads-column::before {
+    /* прибираємо градієнтний оверлей, який часто мерехтить під час drag */
+    display: none;
+  }
+
+  .bead {
+    transition: opacity 120ms linear;
+    will-change: transform, top, opacity;
+    filter: none !important;
+    box-shadow: 0 6px 14px rgba(28, 15, 6, 0.2) !important;
+  }
+
+  .knot {
+    filter: none;
+    transition: opacity 80ms linear;
+    will-change: transform, top, opacity;
+  }
+
+  .beads-column .bead.terminal-bead {
+    filter: none;
+    box-shadow: 0 4px 10px rgba(30, 16, 6, 0.2);
+  }
+
+  .beads-column .bead.terminal-bead::after {
+    filter: none;
+  }
+}

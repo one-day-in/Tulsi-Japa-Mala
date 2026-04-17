@@ -1,0 +1,220 @@
+.beads-area {
+  height: 100%;
+  display: grid;
+  grid-template-rows: 1fr auto;
+  padding: 0 20px 12px;
+  touch-action: none;
+  user-select: none;
+  overflow: hidden;
+}
+
+.beads-column {
+  height: 100%;
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+  transition: opacity 420ms ease;
+}
+
+.beads-column::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 50%;
+  width: min(210px, calc(100% - 12px));
+  transform: translateX(-50%);
+  pointer-events: none;
+  z-index: 0;
+  background:
+    radial-gradient(
+      ellipse at center,
+      rgba(255, 244, 220, 0.2) 0%,
+      rgba(255, 244, 220, 0.08) 42%,
+      rgba(255, 244, 220, 0) 74%
+    ),
+    linear-gradient(
+      to right,
+      rgba(33, 19, 7, 0) 0%,
+      rgba(33, 19, 7, 0.12) 24%,
+      rgba(33, 19, 7, 0.18) 50%,
+      rgba(33, 19, 7, 0.12) 76%,
+      rgba(33, 19, 7, 0) 100%
+    );
+}
+
+.bead {
+  width: 150px;
+  height: 150px;
+  position: absolute;
+  left: 50%;
+  border-radius: 50%;
+  background-color: #d8b17a;
+  background-image: url("../assets/beads-lite/style1.jpg");
+  background-size: 105%;
+  background-position: 50% 47%;
+  background-repeat: no-repeat;
+  border: 1px solid rgba(62, 41, 20, 0.45);
+  transition:
+    opacity 180ms ease,
+    box-shadow 200ms ease,
+    filter 90ms ease-out;
+  will-change: transform, top, opacity, filter;
+  overflow: hidden;
+  z-index: 2;
+}
+
+.bead.root-bead {
+  border-color: rgba(78, 49, 21, 0.72);
+  box-shadow:
+    0 0 0 2px rgba(111, 70, 30, 0.26),
+    inset 0 0 0 1px rgba(252, 233, 182, 0.42);
+}
+
+.beads-column.bead-style-1 .bead {
+  background-image: url("../assets/beads-lite/style1.jpg");
+}
+
+.beads-column.bead-style-2 .bead {
+  background-image: url("../assets/beads-lite/style2.jpg");
+}
+
+.beads-column.bead-style-3 .bead {
+  background-image: url("../assets/beads-lite/style3.jpg");
+}
+
+.beads-column .bead.terminal-bead {
+  background-image: url("../assets/beads-lite/terminal-bead-style.png") !important;
+  background-size: contain;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-color: transparent;
+  border: none;
+  overflow: visible;
+  box-shadow: 0 8px 20px rgba(30, 16, 6, 0.28);
+  filter: brightness(0.97) saturate(1.03);
+}
+
+.beads-column .bead.terminal-bead::after {
+  content: "";
+  position: absolute;
+  height: 100%;
+  width: calc(100% * 1.645);
+  top: 50%;
+  right: 100%;
+  transform: translate(0, -50%);
+  transform-origin: right center;
+  background-image: url("../assets/beads-lite/terminal-tail.png");
+  background-repeat: no-repeat;
+  background-position: right center;
+  background-size: contain;
+  filter: drop-shadow(0 7px 12px rgba(36, 19, 7, 0.24));
+  pointer-events: none;
+  opacity: calc(0.82 + var(--terminal-pull, 0) * 0.18);
+  z-index: -1;
+}
+
+.knot {
+  position: absolute;
+  left: 50%;
+  width: var(--knot-width, 36px);
+  height: var(--knot-height, 52px);
+  transform: translate(-50%, -50%);
+  background-image: var(--knot-image);
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: contain;
+  filter: drop-shadow(0 1px 1px rgba(44, 28, 12, 0.3));
+  pointer-events: none;
+  will-change: transform, top, opacity;
+  z-index: 1;
+  transition: opacity 90ms linear;
+}
+
+.beads-area.dragging .knot {
+  transition-duration: 70ms;
+}
+
+.beads-area.dragging .bead {
+  transition-duration: 70ms;
+}
+
+.status-overlay {
+  position: absolute;
+  top: 10px;
+  left: 14px;
+  right: 14px;
+  z-index: 6;
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+  pointer-events: none;
+}
+
+.status-item {
+  margin: 0;
+  font-size: 14px;
+  color: #6f6355;
+  background: rgba(255, 255, 255, 0.85);
+  border: 1px solid #e6dbc9;
+  border-radius: 10px;
+  padding: 4px 8px;
+}
+
+.status-item span {
+  color: #2f2a24;
+  font-weight: 800;
+}
+
+.next-round-inline-btn {
+  position: absolute;
+  top: 52px;
+  right: 14px;
+  z-index: 7;
+  width: 70px;
+  height: 70px;
+  border: none;
+  border-radius: 999px;
+  background: linear-gradient(180deg, #d8b17a 0%, #b9874d 100%);
+  color: #4f3114;
+  display: grid;
+  place-items: center;
+  box-shadow:
+    0 8px 18px rgba(40, 23, 8, 0.24),
+    inset 0 1px 0 rgba(255, 244, 220, 0.45);
+  opacity: 0;
+  transform: translateY(-6px) scale(0.86);
+  visibility: hidden;
+  pointer-events: none;
+  transition:
+    opacity 220ms ease,
+    transform 220ms ease,
+    visibility 0s linear 220ms;
+}
+
+.next-round-inline-btn.is-visible {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+  visibility: visible;
+  pointer-events: auto;
+  transition:
+    opacity 220ms ease,
+    transform 220ms ease,
+    visibility 0s linear 0s;
+}
+
+.next-round-inline-btn svg {
+  width: 35px;
+  height: 35px;
+}
+
+.next-round-inline-btn.is-visible svg {
+  transform-style: preserve-3d;
+  transform-origin: center;
+  will-change: transform;
+  animation: next-round-beads-flip 4s ease-in-out infinite;
+}
+
+body.round-loader-open .beads-column {
+  opacity: 0;
+}

@@ -1,0 +1,132 @@
+.style-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+
+.style-section-title {
+  margin: 6px 2px 8px;
+  font-size: 14px;
+  font-weight: 800;
+  color: #6a5943;
+}
+
+.sound-grid {
+  display: grid;
+  gap: 10px;
+}
+
+.style-option {
+  border: 1px solid #e3d4bb;
+  border-radius: 12px;
+  background: #fff;
+  min-height: 104px;
+  display: grid;
+  place-items: center;
+  gap: 6px;
+  padding: 6px;
+  font-weight: 600;
+  color: #5f4e3a;
+}
+
+#beadStyleOptions .style-option > span:last-child,
+#backgroundStyleOptions .style-option > span:last-child {
+  display: none;
+}
+
+.style-option.active {
+  border-color: #b68045;
+  box-shadow: inset 0 0 0 2px rgba(182, 128, 69, 0.24);
+}
+
+.bg-option.active {
+  border-color: #8a713b;
+  box-shadow: inset 0 0 0 2px rgba(138, 113, 59, 0.24);
+}
+
+.sound-option {
+  border: 1px solid #e3d4bb;
+  border-radius: 12px;
+  background: #fff;
+  min-height: 52px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 10px;
+  padding: 0 12px;
+  font-weight: 700;
+  color: #5f4e3a;
+}
+
+.sound-option.active {
+  border-color: #6d46b2;
+  box-shadow: inset 0 0 0 2px rgba(109, 70, 178, 0.22);
+  color: #4e2f86;
+}
+
+.sound-icon {
+  width: 20px;
+  height: 20px;
+  flex: 0 0 auto;
+}
+
+.sound-icon svg {
+  width: 100%;
+  height: 100%;
+  fill: currentColor;
+}
+
+.style-dot {
+  width: 70px;
+  height: 70px;
+  border-radius: 50%;
+  border: 1px solid rgba(0, 0, 0, 0.2);
+}
+
+.bg-dot {
+  width: 100%;
+  height: 100%;
+  border-radius: 10px;
+  border: 1px solid rgba(0, 0, 0, 0.16);
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.style-option.style-1 .style-dot {
+  background-image: url("../assets/beads-lite/style1.jpg");
+  background-size: 132%;
+  background-position: 50% 46%;
+}
+
+.style-option.style-2 .style-dot {
+  background-image: url("../assets/beads-lite/style2.jpg");
+  background-size: 132%;
+  background-position: 50% 46%;
+}
+
+.style-option.style-3 .style-dot {
+  background-image: url("../assets/beads-lite/style3.jpg");
+  background-size: 132%;
+  background-position: 50% 46%;
+}
+
+.bg-option.bg-1 .bg-dot {
+  background-image: url("../assets/backgrounds/thumb-bg1.jpg");
+}
+
+.bg-option.bg-2 .bg-dot {
+  background-image: url("../assets/backgrounds/thumb-bg2.jpg");
+}
+
+.bg-option.bg-3 .bg-dot {
+  background-image: url("../assets/backgrounds/thumb-bg3.jpg");
+}
+
+.bg-option.bg-4 .bg-dot {
+  background-image: url("../assets/backgrounds/thumb-bg4.jpg");
+}
+
+.bg-option.bg-5 .bg-dot {
+  background-image: url("../assets/backgrounds/thumb-bg5.jpg");
+}

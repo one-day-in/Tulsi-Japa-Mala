@@ -1,0 +1,115 @@
+.app-header {
+  display: block;
+  padding: max(12px, env(safe-area-inset-top)) 14px 12px;
+  background:
+    linear-gradient(160deg, rgba(238, 216, 184, 0.92) 0%, rgba(214, 174, 124, 0.86) 55%, rgba(173, 123, 76, 0.82) 100%),
+    rgba(176, 128, 81, 0.78);
+  backdrop-filter: blur(10px) saturate(1.08);
+  -webkit-backdrop-filter: blur(10px) saturate(1.08);
+  border-bottom: 1px solid rgba(118, 77, 43, 0.34);
+  box-shadow:
+    0 8px 18px rgba(50, 30, 10, 0.18),
+    inset 0 1px 0 rgba(255, 240, 214, 0.38);
+}
+
+.mode-btn,
+.style-btn,
+.action-btn {
+  border: none;
+  border-radius: 14px;
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.mode-btn {
+  min-height: 42px;
+  background: #f1e7d6;
+  color: var(--muted);
+}
+
+.mode-btn.active {
+  background: var(--accent);
+  color: #fff;
+}
+
+.control-row {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 10px;
+}
+
+.style-btn {
+  min-height: 40px;
+  background: #e8f1fb;
+  color: #2d5880;
+}
+
+.icon-btn {
+  min-height: 42px;
+  border: 1px solid rgba(94, 66, 35, 0.18);
+  border-radius: 13px;
+  background: linear-gradient(180deg, rgba(255, 251, 245, 0.94) 0%, rgba(242, 231, 214, 0.94) 100%);
+  color: #5a3e8c;
+  display: grid;
+  place-items: center;
+  box-shadow:
+    0 4px 10px rgba(45, 25, 10, 0.16),
+    inset 0 1px 0 rgba(255, 255, 255, 0.65);
+  transition: transform 120ms ease, box-shadow 120ms ease, filter 120ms ease, background 120ms ease;
+}
+
+.icon-btn:active {
+  transform: translateY(1px);
+  box-shadow:
+    0 2px 6px rgba(45, 25, 10, 0.16),
+    inset 0 1px 0 rgba(255, 255, 255, 0.55);
+}
+
+.icon-btn svg {
+  width: 23px;
+  height: 23px;
+  fill: currentColor;
+  filter: drop-shadow(0 1px 1px rgba(34, 18, 7, 0.2));
+}
+
+#beadStyleBtn {
+  background: linear-gradient(180deg, #f3d9b5 0%, #d6aa73 100%);
+  color: #4a2b14;
+  border-color: rgba(101, 64, 31, 0.28);
+}
+
+#beadStyleBtn svg {
+  width: 24px;
+  height: 24px;
+}
+
+.icon-btn[data-sound-mode="off"] {
+  background: linear-gradient(180deg, #efe7dd 0%, #dfd2c3 100%);
+  color: #5f4f40;
+}
+
+.icon-btn[data-sound-mode="click"] {
+  background: linear-gradient(180deg, #f3deb9 0%, #dfb179 100%);
+  color: #6e3f1b;
+}
+
+.icon-btn[data-sound-mode="mantra"] {
+  background: linear-gradient(180deg, #9b6b3f 0%, #6f4524 100%);
+  color: #fff4e3;
+}
+
+.reset-round-btn {
+  background: linear-gradient(180deg, #f7dfd8 0%, #e8b8ac 100%);
+  color: #88362f;
+  border-color: rgba(136, 54, 47, 0.26);
+}
+
+@media (pointer: coarse) {
+  .app-header {
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+    background:
+      linear-gradient(160deg, rgba(238, 216, 184, 0.96) 0%, rgba(214, 174, 124, 0.93) 55%, rgba(173, 123, 76, 0.9) 100%),
+      rgba(176, 128, 81, 0.92);
+  }
+}
