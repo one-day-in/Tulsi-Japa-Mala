@@ -20,12 +20,34 @@ export function createAssetsManager(config) {
     img.src = src;
   }
 
+  function extractUrlsFromBackgroundImage(backgroundImageValue) {
+    if (!backgroundImageValue || backgroundImageValue === "none") return [];
+    const matches = backgroundImageValue.match(/url\((['"]?)(.*?)\1\)/g) || [];
+    return matches
+      .map((entry) => {
+        const parsed = entry.match(/url\((['"]?)(.*?)\1\)/);
+        return parsed && parsed[2] ? parsed[2] : null;
+      })
+      .filter(Boolean);
+  }
+
+  function preloadModalThumbsFromDom() {
+    if (typeof document === "undefined" || typeof window === "undefined") return;
+    const thumbDots = document.querySelectorAll("#backgroundStyleOptions .bg-dot");
+    thumbDots.forEach((dot) => {
+      const bg = window.getComputedStyle(dot).backgroundImage;
+      const urls = extractUrlsFromBackgroundImage(bg);
+      urls.forEach((src) => preloadImage(src));
+    });
+  }
+
   function preloadAll() {
     for (const src of beadImageSrcs) preloadImage(src);
     for (const src of backgroundImageSrcs) preloadImage(src);
     preloadImage(knotImageSrc);
     preloadImage(terminalBeadStyleSrc);
     preloadImage(terminalTailSrc);
+    preloadModalThumbsFromDom();
   }
 
   function applyBeadStyle(style) {
