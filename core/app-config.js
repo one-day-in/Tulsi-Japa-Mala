@@ -23,30 +23,30 @@ export const TERMINAL_BEAD_LOW_INDEX = ACTIVE_BEAD_MIN_INDEX - 1;
 export const TERMINAL_BEAD_HIGH_INDEX = ACTIVE_BEAD_MAX_INDEX + 1;
 
 export const BEAD_IMAGE_SRCS = [
-  "./assets/beads-lite/style1.jpg",
-  "./assets/beads-lite/style2.jpg",
-  "./assets/beads-lite/style3.jpg",
+  new URL("../assets/beads-lite/style1.jpg", import.meta.url).href,
+  new URL("../assets/beads-lite/style2.jpg", import.meta.url).href,
+  new URL("../assets/beads-lite/style3.jpg", import.meta.url).href,
 ];
 
 export const BACKGROUND_IMAGE_SRCS = [
-  "./assets/backgrounds/bg1.jpg",
-  "./assets/backgrounds/bg2.jpg",
-  "./assets/backgrounds/bg3.jpg",
-  "./assets/backgrounds/bg4.jpg",
-  "./assets/backgrounds/bg5.jpg",
+  new URL("../assets/backgrounds/bg1.jpg", import.meta.url).href,
+  new URL("../assets/backgrounds/bg2.jpg", import.meta.url).href,
+  new URL("../assets/backgrounds/bg3.jpg", import.meta.url).href,
+  new URL("../assets/backgrounds/bg4.jpg", import.meta.url).href,
+  new URL("../assets/backgrounds/bg5.jpg", import.meta.url).href,
 ];
 
 export const BACKGROUND_IMAGE_BY_STYLE = {
-  bg1: "./assets/backgrounds/bg1.jpg",
-  bg2: "./assets/backgrounds/bg2.jpg",
-  bg3: "./assets/backgrounds/bg3.jpg",
-  bg4: "./assets/backgrounds/bg4.jpg",
-  bg5: "./assets/backgrounds/bg5.jpg",
+  bg1: new URL("../assets/backgrounds/bg1.jpg", import.meta.url).href,
+  bg2: new URL("../assets/backgrounds/bg2.jpg", import.meta.url).href,
+  bg3: new URL("../assets/backgrounds/bg3.jpg", import.meta.url).href,
+  bg4: new URL("../assets/backgrounds/bg4.jpg", import.meta.url).href,
+  bg5: new URL("../assets/backgrounds/bg5.jpg", import.meta.url).href,
 };
 
-export const KNOT_IMAGE_SRC = "./assets/rope-knot-lite.png";
-export const TERMINAL_BEAD_STYLE_SRC = "./assets/beads-lite/terminal-bead-style.png";
-export const TERMINAL_TAIL_SRC = "./assets/beads-lite/terminal-tail.png";
+export const KNOT_IMAGE_SRC = new URL("../assets/rope-knot-lite.png", import.meta.url).href;
+export const TERMINAL_BEAD_STYLE_SRC = new URL("../assets/beads-lite/terminal-bead-style.png", import.meta.url).href;
+export const TERMINAL_TAIL_SRC = new URL("../assets/beads-lite/terminal-tail.png", import.meta.url).href;
 
 export const WHEEL_MIN_STEP_TRIGGER_RATIO = 0.22;
 export const WHEEL_MOMENTUM_MS = 120;
@@ -55,10 +55,10 @@ export const WHEEL_MAX_SETTLE_MS = 360;
 export const DRAG_COMMIT_MIN_PX = 28;
 
 export const HAPTIC_MS = 10;
-export const MANTRA_SRC_M4A = "./assets/audio/mantra.m4a";
-export const MANTRA_SRC_MP3 = "./assets/audio/mantra.mp3";
+export const MANTRA_SRC_M4A = new URL("../assets/audio/mantra.m4a", import.meta.url).href;
+export const MANTRA_SRC_MP3 = new URL("../assets/audio/mantra.mp3", import.meta.url).href;
 export const MANTRA_UNLOCK_EARLY_SEC = 0.12;
-export const STEP_SOUND_SRC = "./assets/audio/step-click.m4a";
+export const STEP_SOUND_SRC = new URL("../assets/audio/step-click.m4a", import.meta.url).href;
 
 export const ROUND_LOADER_MS = 2000;
 
