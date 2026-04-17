@@ -3,9 +3,14 @@
 export function createAudioManager(config) {
   let stepAudioEl = null;
   let mantraAudioEl = null;
+  let unlockAudioEl = null;
   let isAudioUnlockedByGesture = false;
   let isMantraLocked = false;
   let isClickLocked = false;
+
+  // Tiny silent WAV used only to unlock media on iOS/Safari gesture.
+  const SILENT_WAV_DATA_URI =
+    "data:audio/wav;base64,UklGRjQAAABXQVZFZm10IBAAAAABAAEAESsAACJWAAACABAAZGF0YRAAAAAAAAAAAAAAAAAAAAAA";
 
   function notify() {
     if (typeof config.onLockStateChange === "function") {
@@ -58,6 +63,17 @@ export function createAudioManager(config) {
     }
   }
 
+  function initUnlockAudio() {
+    if (unlockAudioEl) return;
+    try {
+      unlockAudioEl = new Audio(SILENT_WAV_DATA_URI);
+      unlockAudioEl.preload = "auto";
+      unlockAudioEl.setAttribute("playsinline", "true");
+    } catch {
+      unlockAudioEl = null;
+    }
+  }
+
   function onMantraProgress() {
     if (!isMantraLocked || !mantraAudioEl) return;
     const duration = mantraAudioEl.duration;
@@ -72,18 +88,23 @@ export function createAudioManager(config) {
     isAudioUnlockedByGesture = true;
 
     initStepAudio();
-    if (!stepAudioEl) return;
+    initUnlockAudio();
+    if (!unlockAudioEl) return;
 
     try {
-      stepAudioEl.muted = true;
-      const p = stepAudioEl.play();
+      unlockAudioEl.muted = true;
+      unlockAudioEl.volume = 0;
+      unlockAudioEl.currentTime = 0;
+      const p = unlockAudioEl.play();
       if (p && typeof p.then === "function") {
         p.then(() => {
-          stepAudioEl.pause();
-          stepAudioEl.currentTime = 0;
-          stepAudioEl.muted = false;
+          unlockAudioEl.pause();
+          unlockAudioEl.currentTime = 0;
+          unlockAudioEl.muted = false;
+          unlockAudioEl.volume = 1;
         }).catch(() => {
-          stepAudioEl.muted = false;
+          unlockAudioEl.muted = false;
+          unlockAudioEl.volume = 1;
         });
         return;
       }
@@ -91,7 +112,8 @@ export function createAudioManager(config) {
       // ignore
     }
 
-    stepAudioEl.muted = false;
+    unlockAudioEl.muted = false;
+    unlockAudioEl.volume = 1;
   }
 
   function bindFirstTouchAudioUnlock(target) {
