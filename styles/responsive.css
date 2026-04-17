@@ -23,20 +23,13 @@
 
   .bead {
     transition: opacity 120ms linear;
-    will-change: transform, top, opacity;
-    filter: none !important;
-    box-shadow: 0 6px 14px rgba(28, 15, 6, 0.2) !important;
+    will-change: transform, top, opacity, filter;
   }
 
   .knot {
     filter: none;
     transition: opacity 80ms linear;
     will-change: transform, top, opacity;
-  }
-
-  .beads-column .bead.terminal-bead {
-    filter: none;
-    box-shadow: 0 4px 10px rgba(30, 16, 6, 0.2);
   }
 
   .beads-column .bead.terminal-bead::after {

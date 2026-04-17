@@ -110,24 +110,21 @@ export function renderBeadLayout(params) {
     bead.style.opacity = "1";
     bead.style.zIndex = String(12 + Math.round(depth * 10));
     const blurPx = (1 - depth) * 1.35;
-    bead.style.filter = lowPowerMode
-      ? `brightness(${(0.93 + depth * 0.1).toFixed(3)})`
-      : `brightness(${(0.9 + depth * 0.15).toFixed(3)}) blur(${blurPx.toFixed(2)}px)`;
+    bead.style.filter = `brightness(${(0.9 + depth * 0.15).toFixed(3)}) blur(${blurPx.toFixed(2)}px)`;
     const shadowY = 4 + depth * 8;
     const shadowBlur = 10 + depth * 16;
     const haloBlur = 4 + depth * 6;
     if (isTerminalBead) {
-      bead.style.boxShadow = lowPowerMode
-        ? `0 ${Math.max(2, shadowY * 0.5).toFixed(2)}px ${Math.max(5, shadowBlur * 0.45).toFixed(2)}px rgba(30, 16, 6, 0.26)`
-        : `0 0 ${haloBlur.toFixed(2)}px rgba(255, 233, 184, 0.2), ` +
-          `0 ${shadowY.toFixed(2)}px ${shadowBlur.toFixed(2)}px rgba(30, 16, 6, 0.32)`;
+      bead.style.boxShadow =
+        `0 0 ${haloBlur.toFixed(2)}px rgba(255, 233, 184, 0.2), ` +
+        `0 ${shadowY.toFixed(2)}px ${shadowBlur.toFixed(2)}px rgba(30, 16, 6, 0.32)`;
     } else {
-      bead.style.boxShadow = lowPowerMode
-        ? `0 0 0 1px rgba(58, 36, 17, 0.28), 0 ${Math.max(2, shadowY * 0.55).toFixed(2)}px ${Math.max(6, shadowBlur * 0.5).toFixed(2)}px rgba(30, 16, 6, 0.28)`
-        : `0 0 0 1px rgba(58, 36, 17, 0.34), ` +
-          `0 0 ${haloBlur.toFixed(2)}px rgba(255, 233, 184, 0.28), ` +
-          `0 ${shadowY.toFixed(2)}px ${shadowBlur.toFixed(2)}px rgba(30, 16, 6, 0.38)`;
+      bead.style.boxShadow =
+        `0 0 0 1px rgba(58, 36, 17, 0.34), ` +
+        `0 0 ${haloBlur.toFixed(2)}px rgba(255, 233, 184, 0.28), ` +
+        `0 ${shadowY.toFixed(2)}px ${shadowBlur.toFixed(2)}px rgba(30, 16, 6, 0.38)`;
     }
+    bead.style.webkitFilter = bead.style.filter;
 
     bead.classList.toggle("root-bead", isRootBead);
     bead.classList.toggle("terminal-bead", isTerminalBead);
@@ -157,7 +154,7 @@ export function renderBeadLayout(params) {
     knot.style.height = `${knotHeight.toFixed(2)}px`;
     knot.style.width = `${knotWidth.toFixed(2)}px`;
     knot.style.zIndex = String(10 + Math.round(knotDepth * 8));
-    knot.style.opacity = String((lowPowerMode ? 0.86 : 0.8) + knotDepth * (lowPowerMode ? 0.14 : 0.2));
+    knot.style.opacity = String(0.8 + knotDepth * 0.2);
 
     const isInsideViewport = midY > -180 && midY < viewportHeight + 180;
     knot.style.visibility = isInsideViewport ? "visible" : "hidden";
