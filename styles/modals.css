@@ -16,6 +16,30 @@
   display: none;
 }
 
+.modal-backdrop:not(.round-loader-backdrop) {
+  opacity: 0;
+  transition: opacity 220ms ease;
+}
+
+.modal-backdrop:not(.round-loader-backdrop) .modal {
+  opacity: 0;
+  transform: translateY(10px) scale(0.98);
+  transition: transform 240ms ease, opacity 200ms ease;
+}
+
+.modal-backdrop:not(.round-loader-backdrop).is-open {
+  opacity: 1;
+}
+
+.modal-backdrop:not(.round-loader-backdrop).is-open .modal {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+}
+
+.modal-backdrop:not(.round-loader-backdrop).is-closing {
+  pointer-events: none;
+}
+
 body.round-loader-open .app {
   pointer-events: none;
 }
@@ -300,6 +324,13 @@ body.round-loader-open .app {
   .round-loader-backdrop {
     backdrop-filter: none;
     -webkit-backdrop-filter: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .modal-backdrop:not(.round-loader-backdrop),
+  .modal-backdrop:not(.round-loader-backdrop) .modal {
+    transition: none;
   }
 }
 

@@ -5,13 +5,48 @@ import { setModalVisibility, setVisibility, setOverlayClass } from "./overlay-ma
 export function createModalManager({ els }) {
   let roundLoaderOpen = false;
   let resetConfirmOpen = false;
+  const closeTimers = new WeakMap();
+
+  function clearCloseTimer(element) {
+    const timerId = closeTimers.get(element);
+    if (!timerId) return;
+    window.clearTimeout(timerId);
+    closeTimers.delete(element);
+  }
+
+  function getModalCloseDurationMs() {
+    if (typeof window === "undefined" || typeof window.matchMedia !== "function") return 220;
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return 0;
+    return 220;
+  }
 
   function openModal(element) {
+    if (!element) return;
+    clearCloseTimer(element);
+    element.classList.remove("is-closing");
     setModalVisibility(element, true);
+
+    // Ensure transitions run from closed -> open state.
+    requestAnimationFrame(() => {
+      requestAnimationFrame(() => {
+        element.classList.add("is-open");
+      });
+    });
   }
 
   function closeModal(element) {
-    setModalVisibility(element, false);
+    if (!element || element.classList.contains("hidden")) return;
+    clearCloseTimer(element);
+    element.classList.remove("is-open");
+    element.classList.add("is-closing");
+
+    const delayMs = getModalCloseDurationMs();
+    const timerId = window.setTimeout(() => {
+      element.classList.remove("is-closing");
+      setModalVisibility(element, false);
+      closeTimers.delete(element);
+    }, delayMs);
+    closeTimers.set(element, timerId);
   }
 
   function openBeadStyleModal() {
