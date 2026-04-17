@@ -8,14 +8,6 @@
 }
 
 @media (pointer: coarse) {
-  .app::before {
-    /* iOS Safari anti-flicker: keep background layer максимально простим */
-    background-image: var(--page-bg-image);
-    background-position: center;
-    background-size: cover;
-    background-repeat: no-repeat;
-  }
-
   .beads-column::before {
     /* прибираємо градієнтний оверлей, який часто мерехтить під час drag */
     display: none;
