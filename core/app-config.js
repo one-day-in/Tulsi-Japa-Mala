@@ -2,8 +2,8 @@
 
 export const TOTAL_BEADS = 158;
 export const ACTIVE_BEAD_MIN_INDEX = 26;
-export const ACTIVE_BEAD_MAX_INDEX = 133;
-export const ACTIVE_STEP_COUNT = ACTIVE_BEAD_MAX_INDEX - ACTIVE_BEAD_MIN_INDEX + 1;
+export const ACTIVE_BEAD_MAX_INDEX = 134;
+export const ACTIVE_STEP_COUNT = ACTIVE_BEAD_MAX_INDEX - ACTIVE_BEAD_MIN_INDEX;
 export const STORAGE_KEY = "hare-krishna-counter-state-v1";
 
 export const SWIPE_THRESHOLD_PX = 22;
@@ -18,7 +18,7 @@ export const SOUND_MODES = ["off", "click", "mantra"];
 
 export const VISUAL_BEAD_MIN_INDEX = 1;
 export const VISUAL_BEAD_MAX_INDEX = TOTAL_BEADS;
-// Virtual 0/109 markers around the active 108-bead run.
+// Virtual markers around the active range.
 export const TERMINAL_BEAD_LOW_INDEX = ACTIVE_BEAD_MIN_INDEX - 1;
 export const TERMINAL_BEAD_HIGH_INDEX = ACTIVE_BEAD_MAX_INDEX + 1;
 

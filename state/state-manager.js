@@ -47,7 +47,7 @@ export function hydrateState(raw, config) {
 }
 
 export function getDisplayStep(currentBead, activeBeadMinIndex) {
-  return currentBead - activeBeadMinIndex + 1;
+  return currentBead - activeBeadMinIndex;
 }
 
 export function applyStepDelta(state, deltaSteps, config) {

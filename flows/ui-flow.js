@@ -28,7 +28,7 @@ export function createUIFlowController(config) {
 
   function onWheelLivePreview(wheelPosition, minIndex, maxIndex) {
     const previewBead = clamp(Math.round(wheelPosition), minIndex, maxIndex);
-    const previewStep = previewBead - activeBeadMinIndex + 1;
+    const previewStep = previewBead - activeBeadMinIndex;
     const uiRenderer = getUIRenderer();
 
     if (uiRenderer && typeof uiRenderer.updateLivePreviewStep === "function") {

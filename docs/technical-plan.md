@@ -16,6 +16,7 @@
   - `mode: "classic" | "beads"`
   - `round: number`
   - `countInRound: number` (0..107)
+  - `displayCount: number` (1..108, похідне від `countInRound + 1`)
   - `totalCount: number` (опціонально, можна обчислювати)
 
 ## Логіка інкремент/декремент
@@ -28,7 +29,7 @@
 ## Режим Classic
 - Кнопка `+` викликає `increment`.
 - Кнопка `-` викликає `decrement`.
-- Дисплей показує `countInRound + 1` або `countInRound` залежно від фінального UX-рішення.
+- Дисплей показує `1..108` (`displayCount = countInRound + 1`).
 
 ## Режим Beads
 - Вертикальна колонка декоративних бусин (CSS/DOM).

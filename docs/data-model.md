@@ -17,7 +17,8 @@
 
 ## Похідні значення
 - `displayCount`: значення, яке показує дисплей (формат уточнимо).
-- `isRoundComplete`: `countInRound === 107` перед натисканням `+`.
+- `displayRange`: `1..108`.
+- `isRoundComplete`: `displayCount === 108` (еквівалентно `countInRound === 107`).
 
 ## Події
 - `INCREMENT`
