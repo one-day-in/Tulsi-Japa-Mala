@@ -96,9 +96,8 @@ export function renderBeadLayout(params) {
     const isTerminalBead = logicalIndex === terminalBeadLowIndex || logicalIndex === terminalBeadHighIndex;
     const relativeToCenter = logicalIndex - wheelIndex;
     const pullStrength = clamp(1 - Math.abs(relativeToCenter) / 2.2, 0, 1);
-    const pullDir = relativeToCenter >= 0 ? 1 : -1;
-    const pullX = isTerminalBead ? pullDir * pullStrength * 4 : 0;
-    const pullRotate = isTerminalBead ? -1.42 : 0;
+    const pullX = 0;
+    const pullRotate = 0;
     const renderSize = isTerminalBead ? size * 1.06 : size;
 
     bead.style.top = `${y}px`;
