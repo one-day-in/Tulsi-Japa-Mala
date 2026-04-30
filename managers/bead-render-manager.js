@@ -95,6 +95,13 @@ export function createBeadRenderManager(config) {
       // Skip until layout is ready; next resize/RAF render will position correctly.
       return;
     }
+    // Keep counter logic unchanged, but shift visual anchor by one bead so
+    // step 0 starts from the terminal bead and the chain continues downward.
+    const renderWheelPosition = Math.min(
+      visualBeadMaxIndex,
+      Math.max(visualBeadMinIndex, wheelPosition - 1),
+    );
+
     renderBeadLayout({
       beads,
       knots,
@@ -103,7 +110,7 @@ export function createBeadRenderManager(config) {
       beadPitch,
       beadSizePx,
       knotAspectRatio,
-      activeBeadIndex: wheelPosition,
+      activeBeadIndex: renderWheelPosition,
       rootBeadMinIndex: visualBeadMinIndex,
       rootBeadMaxIndex: visualBeadMaxIndex,
       terminalBeadLowIndex,
