@@ -99,7 +99,7 @@ export function createBeadRenderManager(config) {
     // step 0 starts from the terminal bead and the chain continues downward.
     const renderWheelPosition = Math.min(
       visualBeadMaxIndex,
-      Math.max(visualBeadMinIndex, wheelPosition - 1),
+      Math.max(visualBeadMinIndex, wheelPosition),
     );
 
     renderBeadLayout({
