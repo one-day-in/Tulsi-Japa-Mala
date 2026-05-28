@@ -95,11 +95,10 @@ export function createBeadRenderManager(config) {
       // Skip until layout is ready; next resize/RAF render will position correctly.
       return;
     }
-    // Keep counter logic unchanged, but shift visual anchor by one bead so
-    // step 0 starts from the terminal bead and the chain continues downward.
+    // Keep counter logic unchanged while aligning step 0 to the terminal bead.
     const renderWheelPosition = Math.min(
       visualBeadMaxIndex,
-      Math.max(visualBeadMinIndex, wheelPosition),
+      Math.max(visualBeadMinIndex, wheelPosition - 1),
     );
 
     renderBeadLayout({

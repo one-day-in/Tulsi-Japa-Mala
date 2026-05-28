@@ -16,7 +16,7 @@ export const BEAD_STYLES = ["style1", "style2", "style3"];
 export const BACKGROUND_STYLES = ["bg1", "bg2", "bg3", "bg4", "bg5"];
 export const SOUND_MODES = ["off", "click", "mantra"];
 
-export const VISUAL_BEAD_MIN_INDEX = 1;
+export const VISUAL_BEAD_MIN_INDEX = 2;
 export const VISUAL_BEAD_MAX_INDEX = TOTAL_BEADS;
 // Virtual markers around the active range.
 export const TERMINAL_BEAD_LOW_INDEX = ACTIVE_BEAD_MIN_INDEX - 1;
