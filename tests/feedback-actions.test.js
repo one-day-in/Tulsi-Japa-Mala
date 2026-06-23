@@ -1,6 +1,7 @@
 import assert from "node:assert/strict";
 import test from "node:test";
 
+import { FEEDBACK_TELEGRAM_URL } from "../core/app-config.js";
 import { createRuntimeActions } from "../runtime/runtime-actions.js";
 
 function createFeedbackContext(overrides = {}) {
@@ -18,7 +19,7 @@ function createFeedbackContext(overrides = {}) {
       els,
       feedbackEmail: "owner@example.com",
       feedbackEmailSubject: "Test feedback",
-      feedbackTelegramUrl: "https://t.me/example",
+      feedbackTelegramUrl: FEEDBACK_TELEGRAM_URL,
       getAssetsManager: () => ({}),
       getAudioFlowController: () => null,
       getRoundFlowController: () => null,
@@ -67,6 +68,70 @@ test("feedback email action reports empty text without opening mail", () => {
     assert.equal(globalThis.window.location.href, "");
     assert.equal(els.feedbackStatus.textContent, "feedback.empty");
   } finally {
+    globalThis.window = originalWindow;
+  }
+});
+
+test("feedback telegram action opens the configured profile without requiring text", async () => {
+  const originalWindow = globalThis.window;
+  let openedWindow = null;
+  globalThis.window = {
+    open: (url, target, features) => {
+      openedWindow = { url, target, features };
+    },
+  };
+
+  try {
+    const { actions, els } = createFeedbackContext();
+
+    await actions.onFeedbackTelegram();
+
+    assert.deepEqual(openedWindow, {
+      url: "https://t.me/OneDay_in",
+      target: "_blank",
+      features: "noopener,noreferrer",
+    });
+    assert.equal(els.feedbackStatus.textContent, "feedback.telegramProfileOpened");
+  } finally {
+    globalThis.window = originalWindow;
+  }
+});
+
+test("feedback telegram action copies text before reporting that Telegram opened", async () => {
+  const originalNavigator = globalThis.navigator;
+  const originalWindow = globalThis.window;
+  let copiedText = "";
+  let openedUrl = "";
+  Object.defineProperty(globalThis, "navigator", {
+    configurable: true,
+    value: {
+      clipboard: {
+        writeText: async (text) => {
+          copiedText = text;
+        },
+      },
+    },
+  });
+  globalThis.window = {
+    open: (url) => {
+      openedUrl = url;
+    },
+  };
+
+  try {
+    const { actions, els } = createFeedbackContext();
+    els.feedbackText.value = "Hare Krishna";
+
+    await actions.onFeedbackTelegram();
+
+    assert.equal(openedUrl, "https://t.me/OneDay_in");
+    assert.equal(copiedText, "Hare Krishna");
+    assert.equal(els.feedbackStatus.textContent, "feedback.telegramOpened");
+  } finally {
+    Object.defineProperty(globalThis, "navigator", {
+      configurable: true,
+      value: originalNavigator,
+    });
     globalThis.window = originalWindow;
   }
 });

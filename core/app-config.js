@@ -16,7 +16,7 @@ export const BEAD_STYLES = ["style1", "style2", "style3"];
 export const BACKGROUND_STYLES = ["bg1", "bg2", "bg3", "bg4", "bg5"];
 export const SOUND_MODES = ["off", "click", "mantra"];
 export const FEEDBACK_EMAIL = "skabullartem@gmail.com";
-export const FEEDBACK_TELEGRAM_URL = "";
+export const FEEDBACK_TELEGRAM_URL = "https://t.me/OneDay_in";
 export const FEEDBACK_EMAIL_SUBJECT = "Tulsi Japa Mala feedback";
 
 export const VISUAL_BEAD_MIN_INDEX = 1;

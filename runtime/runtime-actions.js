@@ -70,18 +70,18 @@ export function createRuntimeActions(ctx) {
 
     async onFeedbackTelegram() {
       const text = getFeedbackText();
-      if (!text) {
-        setFeedbackStatus(ctx.t("feedback.empty"));
-        return;
-      }
-
       if (!ctx.feedbackTelegramUrl) {
         setFeedbackStatus(ctx.t("feedback.telegramUnavailable"));
         return;
       }
 
-      await copyFeedbackText(text);
       window.open(ctx.feedbackTelegramUrl, "_blank", "noopener,noreferrer");
+      if (!text) {
+        setFeedbackStatus(ctx.t("feedback.telegramProfileOpened"));
+        return;
+      }
+
+      await copyFeedbackText(text);
       setFeedbackStatus(ctx.t("feedback.telegramOpened"));
     },
 
