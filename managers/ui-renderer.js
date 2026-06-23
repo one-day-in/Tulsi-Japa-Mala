@@ -6,10 +6,18 @@ export function createUIRenderer(config) {
     round: null,
     displayStep: null,
     nextRoundVisible: null,
+    beadsAreaStep: null,
     soundMode: null,
     soundAria: null,
     soundIcon: null,
   };
+
+  function syncBeadsAreaValue(step) {
+    if (!els.beadsArea || cache.beadsAreaStep === step) return;
+    els.beadsArea.setAttribute("aria-valuenow", String(step));
+    els.beadsArea.setAttribute("aria-valuetext", `${step}/${activeStepCount}`);
+    cache.beadsAreaStep = step;
+  }
 
   function syncNextRoundButton(step, isRoundLoaderOpen) {
     if (!els.nextRoundInlineBtn) return;
@@ -37,14 +45,18 @@ export function createUIRenderer(config) {
       els.displayMax.textContent = String(activeStepCount);
     }
 
+    syncBeadsAreaValue(step);
     syncNextRoundButton(step, isRoundLoaderOpen);
   }
 
   function updateLivePreviewStep(step) {
-    if (cache.displayStep === step) return false;
-    els.displayValue.textContent = String(step);
-    cache.displayStep = step;
-    return true;
+    const changed = cache.displayStep !== step;
+    if (changed) {
+      els.displayValue.textContent = String(step);
+      cache.displayStep = step;
+    }
+    syncBeadsAreaValue(step);
+    return changed;
   }
 
   function renderSoundButton({ soundMode, soundLabelPrefix, soundModeLabelText }) {

@@ -34,7 +34,7 @@
 
 .control-row {
   display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
+  grid-template-columns: repeat(4, minmax(0, 1fr));
   gap: 10px;
 }
 
@@ -102,6 +102,12 @@
   background: linear-gradient(180deg, #f7dfd8 0%, #e8b8ac 100%);
   color: #88362f;
   border-color: rgba(136, 54, 47, 0.26);
+}
+
+#feedbackBtn {
+  background: linear-gradient(180deg, #efe8d7 0%, #dbc59c 100%);
+  color: #65451f;
+  border-color: rgba(101, 69, 31, 0.26);
 }
 
 @media (pointer: coarse) {

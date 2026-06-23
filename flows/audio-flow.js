@@ -100,7 +100,7 @@ export function createAudioFlowController(config) {
   function isStepBlocked() {
     const audioManager = getAudioManager();
     const modalManager = getModalManager();
-    const { isMantraLocked, isClickLocked } = getLocks();
+    const { isMantraLocked } = getLocks();
 
     if (audioManager && typeof audioManager.isStepBlocked === "function") {
       return audioManager.isStepBlocked({
@@ -113,7 +113,6 @@ export function createAudioFlowController(config) {
     if (modalManager.isRoundLoaderOpen()) return true;
     if (modalManager.isResetConfirmOpen()) return true;
     if (isMantraLocked) return true;
-    if (getSoundMode() === "click" && isClickLocked) return true;
     return false;
   }
 

@@ -234,7 +234,11 @@ function initBindings(ctx) {
   const handlers = buildRuntimeEventHandlers({
     onReset: ctx.onReset,
     onConfirmReset: ctx.onConfirmReset,
+    onFeedbackEmail: ctx.onFeedbackEmail,
+    onFeedbackTelegram: ctx.onFeedbackTelegram,
+    onFeedbackCopy: ctx.onFeedbackCopy,
     onNextRound: ctx.onNextRound,
+    onBeadsKeyDown: ctx.onBeadsKeyDown,
     modalManager: ctx.getModalManager,
     settingsFlowController: ctx.getSettingsFlowController,
     audioFlowController: ctx.getAudioFlowController,

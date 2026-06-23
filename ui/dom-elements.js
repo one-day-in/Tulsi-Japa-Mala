@@ -10,6 +10,7 @@ export function getDomElements() {
     resetBtn: document.getElementById("resetBtn"),
     beadStyleBtn: document.getElementById("beadStyleBtn"),
     soundModeBtn: document.getElementById("soundModeBtn"),
+    feedbackBtn: document.getElementById("feedbackBtn"),
     beadsArea: document.getElementById("beadsGestureArea"),
     beadsColumn: document.getElementById("beadsColumn"),
     beadStyleModal: document.getElementById("beadStyleModal"),
@@ -43,5 +44,15 @@ export function getDomElements() {
     confirmResetBtn: document.getElementById("confirmResetBtn"),
     resetConfirmTitle: document.getElementById("resetConfirmTitle"),
     resetConfirmText: document.getElementById("resetConfirmText"),
+    feedbackModal: document.getElementById("feedbackModal"),
+    closeFeedbackModalBtn: document.getElementById("closeFeedbackModalBtn"),
+    feedbackText: document.getElementById("feedbackText"),
+    feedbackEmailBtn: document.getElementById("feedbackEmailBtn"),
+    feedbackTelegramBtn: document.getElementById("feedbackTelegramBtn"),
+    feedbackCopyBtn: document.getElementById("feedbackCopyBtn"),
+    feedbackTitle: document.getElementById("feedbackTitle"),
+    feedbackIntro: document.getElementById("feedbackIntro"),
+    feedbackTextLabel: document.getElementById("feedbackTextLabel"),
+    feedbackStatus: document.getElementById("feedbackStatus"),
   };
 }

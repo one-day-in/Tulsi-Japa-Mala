@@ -5,7 +5,51 @@ import { setModalVisibility, setVisibility, setOverlayClass } from "./overlay-ma
 export function createModalManager({ els }) {
   let roundLoaderOpen = false;
   let resetConfirmOpen = false;
+  let activeModal = null;
   const closeTimers = new WeakMap();
+  const returnFocusTargets = new WeakMap();
+
+  function getFocusableElements(element) {
+    if (!element) return [];
+    return Array.from(
+      element.querySelectorAll(
+        'button:not([disabled]), [href], input:not([disabled]), select:not([disabled]), textarea:not([disabled]), [tabindex]:not([tabindex="-1"])',
+      ),
+    );
+  }
+
+  function focusFirstControl(element) {
+    const preferred = element?.querySelector("[data-initial-focus]");
+    const [first] = preferred ? [preferred] : getFocusableElements(element);
+    first?.focus();
+  }
+
+  function restoreFocus(element) {
+    const target = returnFocusTargets.get(element);
+    returnFocusTargets.delete(element);
+    if (target && typeof target.focus === "function" && target.isConnected !== false) {
+      target.focus();
+    }
+  }
+
+  function trapFocus(event) {
+    if (event.key !== "Tab" || !activeModal) return;
+    const focusable = getFocusableElements(activeModal);
+    if (focusable.length === 0) {
+      event.preventDefault();
+      return;
+    }
+
+    const first = focusable[0];
+    const last = focusable[focusable.length - 1];
+    if (event.shiftKey && document.activeElement === first) {
+      event.preventDefault();
+      last.focus();
+    } else if (!event.shiftKey && document.activeElement === last) {
+      event.preventDefault();
+      first.focus();
+    }
+  }
 
   function clearCloseTimer(element) {
     const timerId = closeTimers.get(element);
@@ -23,6 +67,11 @@ export function createModalManager({ els }) {
   function openModal(element) {
     if (!element) return;
     clearCloseTimer(element);
+    const currentFocus = document.activeElement;
+    if (currentFocus && currentFocus !== document.body) {
+      returnFocusTargets.set(element, currentFocus);
+    }
+    activeModal = element;
     element.classList.remove("is-closing");
     setModalVisibility(element, true);
 
@@ -30,6 +79,7 @@ export function createModalManager({ els }) {
     requestAnimationFrame(() => {
       requestAnimationFrame(() => {
         element.classList.add("is-open");
+        focusFirstControl(element);
       });
     });
   }
@@ -44,6 +94,8 @@ export function createModalManager({ els }) {
     const timerId = window.setTimeout(() => {
       element.classList.remove("is-closing");
       setModalVisibility(element, false);
+      if (activeModal === element) activeModal = null;
+      restoreFocus(element);
       closeTimers.delete(element);
     }, delayMs);
     closeTimers.set(element, timerId);
@@ -95,6 +147,21 @@ export function createModalManager({ els }) {
     }
   }
 
+  function openFeedbackModal() {
+    if (roundLoaderOpen) return;
+    openModal(els.feedbackModal);
+  }
+
+  function closeFeedbackModal() {
+    closeModal(els.feedbackModal);
+  }
+
+  function onFeedbackBackdropClick(event) {
+    if (event.target === els.feedbackModal) {
+      closeFeedbackModal();
+    }
+  }
+
   function openRoundLoader() {
     if (roundLoaderOpen || !els.roundLoader) return;
     roundLoaderOpen = true;
@@ -110,9 +177,11 @@ export function createModalManager({ els }) {
   }
 
   function onEscapeKey(event) {
+    trapFocus(event);
     if (event.key !== "Escape") return;
     if (!els.beadStyleModal.classList.contains("hidden")) closeBeadStyleModal();
     if (!els.soundModeModal.classList.contains("hidden")) closeSoundModeModal();
+    if (!els.feedbackModal.classList.contains("hidden")) closeFeedbackModal();
     if (!els.resetConfirmModal.classList.contains("hidden")) closeResetConfirmModal();
   }
 
@@ -134,6 +203,9 @@ export function createModalManager({ els }) {
     openResetConfirmModal,
     closeResetConfirmModal,
     onResetConfirmBackdropClick,
+    openFeedbackModal,
+    closeFeedbackModal,
+    onFeedbackBackdropClick,
     openRoundLoader,
     closeRoundLoader,
     onEscapeKey,

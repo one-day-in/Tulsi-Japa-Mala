@@ -12,6 +12,7 @@
   position: relative;
   overflow: hidden;
   isolation: isolate;
+  container-type: inline-size;
   transition: opacity 420ms ease;
 }
 
@@ -111,6 +112,16 @@
   pointer-events: none;
   opacity: calc(0.82 + var(--terminal-pull, 0) * 0.18);
   z-index: -1;
+}
+
+@supports (width: 1cqw) {
+  .beads-column .bead.terminal-bead::after {
+    width: clamp(
+      calc(100% * 0.8),
+      calc(50cqw - 50% - 8px),
+      calc(100% * 1.645)
+    );
+  }
 }
 
 .knot {

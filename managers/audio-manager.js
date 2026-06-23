@@ -7,6 +7,10 @@ export function createAudioManager(config) {
   let isAudioUnlockedByGesture = false;
   let isMantraLocked = false;
   let isClickLocked = false;
+  let clickUnlockTimerId = null;
+  const clickLockFallbackMs = Number.isFinite(config.clickLockFallbackMs)
+    ? Math.max(0, config.clickLockFallbackMs)
+    : 800;
 
   // Tiny silent WAV used only to unlock media on iOS/Safari gesture.
   const SILENT_WAV_DATA_URI =
@@ -33,6 +37,25 @@ export function createAudioManager(config) {
     notify();
   }
 
+  function clearClickUnlockTimer() {
+    if (clickUnlockTimerId === null) return;
+    globalThis.clearTimeout(clickUnlockTimerId);
+    clickUnlockTimerId = null;
+  }
+
+  function unlockClick() {
+    clearClickUnlockTimer();
+    setClickLocked(false);
+  }
+
+  function scheduleClickUnlock() {
+    clearClickUnlockTimer();
+    clickUnlockTimerId = globalThis.setTimeout(() => {
+      clickUnlockTimerId = null;
+      setClickLocked(false);
+    }, clickLockFallbackMs);
+  }
+
   function initStepAudio() {
     if (stepAudioEl) return;
 
@@ -40,8 +63,8 @@ export function createAudioManager(config) {
       stepAudioEl = new Audio(config.stepSoundSrc);
       stepAudioEl.preload = "auto";
       stepAudioEl.setAttribute("playsinline", "true");
-      stepAudioEl.addEventListener("ended", () => setClickLocked(false));
-      stepAudioEl.addEventListener("error", () => setClickLocked(false));
+      stepAudioEl.addEventListener("ended", unlockClick);
+      stepAudioEl.addEventListener("error", unlockClick);
     } catch {
       stepAudioEl = null;
     }
@@ -85,7 +108,6 @@ export function createAudioManager(config) {
 
   function unlockAudioFromGesture() {
     if (isAudioUnlockedByGesture) return;
-    isAudioUnlockedByGesture = true;
 
     initStepAudio();
     initUnlockAudio();
@@ -98,6 +120,7 @@ export function createAudioManager(config) {
       const p = unlockAudioEl.play();
       if (p && typeof p.then === "function") {
         p.then(() => {
+          isAudioUnlockedByGesture = true;
           unlockAudioEl.pause();
           unlockAudioEl.currentTime = 0;
           unlockAudioEl.muted = false;
@@ -108,6 +131,7 @@ export function createAudioManager(config) {
         });
         return;
       }
+      isAudioUnlockedByGesture = true;
     } catch {
       // ignore
     }
@@ -122,9 +146,9 @@ export function createAudioManager(config) {
       unlockAudioFromGesture();
     };
 
-    safeTarget.addEventListener("touchstart", unlock, { passive: true, once: true, capture: true });
-    safeTarget.addEventListener("pointerdown", unlock, { passive: true, once: true, capture: true });
-    safeTarget.addEventListener("click", unlock, { passive: true, once: true, capture: true });
+    safeTarget.addEventListener("touchstart", unlock, { passive: true, capture: true });
+    safeTarget.addEventListener("pointerdown", unlock, { passive: true, capture: true });
+    safeTarget.addEventListener("click", unlock, { passive: true, capture: true });
   }
 
   function playStepSound(soundMode) {
@@ -134,17 +158,18 @@ export function createAudioManager(config) {
 
     try {
       setClickLocked(true);
+      scheduleClickUnlock();
       stepAudioEl.pause();
       stepAudioEl.currentTime = 0;
       const maybePromise = stepAudioEl.play();
       if (maybePromise && typeof maybePromise.catch === "function") {
         maybePromise.catch(() => {
-          setClickLocked(false);
+          unlockClick();
         });
       }
       return true;
     } catch {
-      setClickLocked(false);
+      unlockClick();
       return false;
     }
   }
@@ -188,7 +213,7 @@ export function createAudioManager(config) {
     } catch {
       // ignore
     }
-    setClickLocked(false);
+    unlockClick();
   }
 
   function stopMantraPlayback() {
@@ -226,7 +251,6 @@ export function createAudioManager(config) {
     if (isRoundLoaderOpen) return true;
     if (isResetConfirmOpen) return true;
     if (isMantraLocked) return true;
-    if (soundMode === "click" && isClickLocked) return true;
     return false;
   }
 

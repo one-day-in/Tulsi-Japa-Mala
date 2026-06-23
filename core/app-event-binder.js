@@ -17,6 +17,7 @@ export function bindAppEvents({ els, handlers }) {
     onReset,
     onOpenBeadStyle,
     onOpenSoundMode,
+    onOpenFeedback,
     onCloseBeadStyle,
     onBeadStyleBackdropClick,
     onBeadStyleOptionClick,
@@ -27,6 +28,11 @@ export function bindAppEvents({ els, handlers }) {
     onCloseResetConfirm,
     onConfirmReset,
     onResetConfirmBackdropClick,
+    onCloseFeedback,
+    onFeedbackBackdropClick,
+    onFeedbackEmail,
+    onFeedbackTelegram,
+    onFeedbackCopy,
     onNextRound,
     onEscapeKey,
     onInitStepAudio,
@@ -34,12 +40,14 @@ export function bindAppEvents({ els, handlers }) {
     onPointerMove,
     onPointerUp,
     onPointerCancel,
+    onBeadsKeyDown,
     onResize,
   } = handlers;
 
   els.resetBtn.addEventListener("click", onReset);
   els.beadStyleBtn.addEventListener("click", onOpenBeadStyle);
   els.soundModeBtn.addEventListener("click", onOpenSoundMode);
+  els.feedbackBtn.addEventListener("click", onOpenFeedback);
   els.closeBeadStyleModalBtn.addEventListener("click", onCloseBeadStyle);
   els.beadStyleModal.addEventListener("click", onBeadStyleBackdropClick);
   els.beadStyleOptions.addEventListener("click", onBeadStyleOptionClick);
@@ -51,6 +59,11 @@ export function bindAppEvents({ els, handlers }) {
   els.cancelResetBtn.addEventListener("click", onCloseResetConfirm);
   els.confirmResetBtn.addEventListener("click", onConfirmReset);
   els.resetConfirmModal.addEventListener("click", onResetConfirmBackdropClick);
+  els.closeFeedbackModalBtn.addEventListener("click", onCloseFeedback);
+  els.feedbackModal.addEventListener("click", onFeedbackBackdropClick);
+  els.feedbackEmailBtn.addEventListener("click", onFeedbackEmail);
+  els.feedbackTelegramBtn.addEventListener("click", onFeedbackTelegram);
+  els.feedbackCopyBtn.addEventListener("click", onFeedbackCopy);
   els.nextRoundInlineBtn.addEventListener("click", onNextRound);
   document.addEventListener("keydown", onEscapeKey);
   els.beadsArea.addEventListener("touchstart", onInitStepAudio, { passive: true });
@@ -59,6 +72,7 @@ export function bindAppEvents({ els, handlers }) {
   els.beadsArea.addEventListener("pointermove", onPointerMove);
   els.beadsArea.addEventListener("pointerup", onPointerUp);
   els.beadsArea.addEventListener("pointercancel", onPointerCancel);
+  els.beadsArea.addEventListener("keydown", onBeadsKeyDown);
 
   window.addEventListener("resize", onResize);
 }

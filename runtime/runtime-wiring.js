@@ -112,6 +112,7 @@ export function buildRuntimeEventHandlers(ctx) {
     onReset: ctx.onReset,
     onOpenBeadStyle: () => ctx.modalManager()?.openBeadStyleModal(),
     onOpenSoundMode: () => ctx.modalManager()?.openSoundModeModal(),
+    onOpenFeedback: () => ctx.modalManager()?.openFeedbackModal(),
     onCloseBeadStyle: () => ctx.modalManager()?.closeBeadStyleModal(),
     onBeadStyleBackdropClick: (event) => ctx.modalManager()?.onBeadStyleBackdropClick(event),
     onBeadStyleOptionClick: (event) => ctx.settingsFlowController()?.onBeadStyleOptionClick(event),
@@ -122,6 +123,11 @@ export function buildRuntimeEventHandlers(ctx) {
     onCloseResetConfirm: () => ctx.modalManager()?.closeResetConfirmModal(),
     onConfirmReset: ctx.onConfirmReset,
     onResetConfirmBackdropClick: (event) => ctx.modalManager()?.onResetConfirmBackdropClick(event),
+    onCloseFeedback: () => ctx.modalManager()?.closeFeedbackModal(),
+    onFeedbackBackdropClick: (event) => ctx.modalManager()?.onFeedbackBackdropClick(event),
+    onFeedbackEmail: ctx.onFeedbackEmail,
+    onFeedbackTelegram: ctx.onFeedbackTelegram,
+    onFeedbackCopy: ctx.onFeedbackCopy,
     onNextRound: ctx.onNextRound,
     onEscapeKey: (event) => ctx.modalManager()?.onEscapeKey(event),
     onInitStepAudio: () => ctx.audioFlowController()?.initStepAudio(),
@@ -129,6 +135,7 @@ export function buildRuntimeEventHandlers(ctx) {
     onPointerMove: (event) => ctx.gestureFlowController()?.onPointerMove(event),
     onPointerUp: (event) => ctx.gestureFlowController()?.onPointerUp(event),
     onPointerCancel: (event) => ctx.gestureFlowController()?.onPointerCancel(event),
+    onBeadsKeyDown: ctx.onBeadsKeyDown,
     onResize: () => ctx.gestureFlowController()?.onResize(),
   };
 }

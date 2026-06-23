@@ -22,3 +22,7 @@ pnpm-debug.log*
 # Tooling cache
 .vite/
 *.tsbuildinfo
+
+# Local agentmemory store
+data/state_store.db/
+data/stream_store/

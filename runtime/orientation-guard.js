@@ -1,3 +1,5 @@
+import { setOverlayClass } from "../managers/overlay-manager.js";
+
 function isLikelyMobile() {
   const coarse =
     typeof window.matchMedia === "function" && window.matchMedia("(pointer: coarse)").matches;
@@ -71,7 +73,7 @@ export function initOrientationGuard({ t }) {
     const lockNeeded = isLikelyMobile() && isLandscape();
     overlay.classList.toggle("is-visible", lockNeeded);
     overlay.setAttribute("aria-hidden", String(!lockNeeded));
-    document.body.classList.toggle("orientation-lock-open", lockNeeded);
+    setOverlayClass("orientation-lock-open", lockNeeded);
   };
 
   const orientationQuery =

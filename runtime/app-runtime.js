@@ -54,6 +54,9 @@ import {
   STEP_SOUND_SRC,
   ROUND_LOADER_MS,
   STATE_DOMAIN_CONFIG,
+  FEEDBACK_EMAIL,
+  FEEDBACK_TELEGRAM_URL,
+  FEEDBACK_EMAIL_SUBJECT,
 } from "../core/app-config.js";
 import {
   initAudioManager as ensureAudioManager,
@@ -108,7 +111,11 @@ let settingsFlowController = null;
 
 const actions = createRuntimeActions({
   i18nManager,
+  t,
   els,
+  feedbackEmail: FEEDBACK_EMAIL,
+  feedbackTelegramUrl: FEEDBACK_TELEGRAM_URL,
+  feedbackEmailSubject: FEEDBACK_EMAIL_SUBJECT,
   hapticMs: HAPTIC_MS,
   activeBeadMinIndex: ACTIVE_BEAD_MIN_INDEX,
   stateDomainConfig: STATE_DOMAIN_CONFIG,
@@ -210,7 +217,11 @@ function bootstrapRuntime() {
     saveState: () => actions.saveState(),
     onReset: () => actions.onReset(),
     onConfirmReset: () => actions.onConfirmReset(),
+    onFeedbackEmail: () => actions.onFeedbackEmail(),
+    onFeedbackTelegram: () => actions.onFeedbackTelegram(),
+    onFeedbackCopy: () => actions.onFeedbackCopy(),
     onNextRound: () => actions.onNextRound(),
+    onBeadsKeyDown: (event) => actions.onBeadsKeyDown(event),
     onWheelLivePreview: (wheelPosition, minIndex, maxIndex) =>
       actions.onWheelLivePreview(wheelPosition, minIndex, maxIndex),
     onLockStateChange: (locks) => {
@@ -224,6 +235,9 @@ function bootstrapRuntime() {
     getWheelIndex: () => wheelIndex,
     setWheelIndex: (nextValue) => {
       wheelIndex = nextValue;
+    },
+    requestRender: (nextWheel) => {
+      beadRenderManager?.requestRender(nextWheel);
     },
     getLocks: () => ({ isMantraLocked, isClickLocked }),
     setLocks: (locks) => {

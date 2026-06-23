@@ -1,6 +1,11 @@
 // Controls manager: options state sync and icon rendering for controls.
 
-import { getBeadStyleControlIcon, getResetRoundControlIcon, getRoundLoaderIcon } from "../ui/svg-icons.js";
+import {
+  getBeadStyleControlIcon,
+  getFeedbackControlIcon,
+  getResetRoundControlIcon,
+  getRoundLoaderIcon,
+} from "../ui/svg-icons.js";
 
 export function createControlsManager(config) {
   const {
@@ -10,6 +15,7 @@ export function createControlsManager(config) {
     beadStyleBtnEl,
     resetBtnEl,
     soundModeBtnEl,
+    feedbackBtnEl,
     roundLoaderSpinnerEl,
     nextRoundInlineBtnEl,
     getSoundIconSvg,
@@ -64,6 +70,9 @@ export function createControlsManager(config) {
     }
     if (resetBtnEl) {
       resetBtnEl.innerHTML = getResetRoundControlIcon();
+    }
+    if (feedbackBtnEl) {
+      feedbackBtnEl.innerHTML = getFeedbackControlIcon();
     }
   }
 

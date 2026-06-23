@@ -24,6 +24,7 @@
         <div class="control-row">
           <button id="beadStyleBtn" class="icon-btn" type="button" aria-label="Стиль бусин"></button>
           <button id="soundModeBtn" class="icon-btn" type="button" aria-label="Режим звуку"></button>
+          <button id="feedbackBtn" class="icon-btn" type="button" aria-label="Залишити відгук"></button>
           <button id="resetBtn" class="icon-btn reset-round-btn" type="button" aria-label="Скинути поточний раунд"></button>
         </div>
       </header>
@@ -43,7 +44,16 @@
         ></button>
 
         <section id="beadsMode" class="mode-view">
-          <div id="beadsGestureArea" class="beads-area" aria-label="Область жестів бусин">
+          <div
+            id="beadsGestureArea"
+            class="beads-area"
+            role="slider"
+            tabindex="0"
+            aria-label="Область жестів бусин"
+            aria-valuemin="0"
+            aria-valuemax="108"
+            aria-valuenow="0"
+          >
             <div class="beads-column" id="beadsColumn"></div>
           </div>
         </section>
@@ -84,6 +94,35 @@
         <div class="modal-actions">
           <button id="cancelResetBtn" class="modal-action-btn ghost" type="button">Скасувати</button>
           <button id="confirmResetBtn" class="modal-action-btn danger" type="button">Скинути</button>
+        </div>
+      </div>
+    </div>
+
+    <div id="feedbackModal" class="modal-backdrop hidden" aria-hidden="true">
+      <div class="modal feedback-modal" role="dialog" aria-modal="true" aria-labelledby="feedbackTitle">
+        <div class="modal-head">
+          <h2 id="feedbackTitle">Відгук</h2>
+          <button id="closeFeedbackModalBtn" class="modal-close" type="button" aria-label="Закрити">x</button>
+        </div>
+        <p id="feedbackIntro" class="feedback-intro">
+          Напишіть відгук, ідею, подяку або що варто покращити.
+        </p>
+        <label id="feedbackTextLabel" class="feedback-label" for="feedbackText">
+          Повідомлення
+        </label>
+        <textarea
+          id="feedbackText"
+          class="feedback-textarea"
+          data-initial-focus
+          rows="7"
+          maxlength="1600"
+          placeholder="Ваш відгук..."
+        ></textarea>
+        <p id="feedbackStatus" class="feedback-status" aria-live="polite"></p>
+        <div class="modal-actions feedback-actions">
+          <button id="feedbackEmailBtn" class="modal-action-btn primary" type="button">Email</button>
+          <button id="feedbackTelegramBtn" class="modal-action-btn ghost" type="button">Telegram</button>
+          <button id="feedbackCopyBtn" class="modal-action-btn ghost" type="button">Копіювати</button>
         </div>
       </div>
     </div>

@@ -2,6 +2,16 @@
 
 let modalDepth = 0;
 
+function syncAppInertState() {
+  const app = document.querySelector(".app");
+  if (!app) return;
+  const shouldBeInert =
+    document.body.classList.contains("modal-open") ||
+    document.body.classList.contains("round-loader-open") ||
+    document.body.classList.contains("orientation-lock-open");
+  app.inert = shouldBeInert;
+}
+
 export function setVisibility(element, visible) {
   if (!element) return false;
   const isVisible = !element.classList.contains("hidden");
@@ -22,9 +32,11 @@ export function setModalVisibility(element, visible) {
   }
 
   document.body.classList.toggle("modal-open", modalDepth > 0);
+  syncAppInertState();
 }
 
 export function setOverlayClass(bodyClass, visible) {
   if (!bodyClass) return;
   document.body.classList.toggle(bodyClass, visible);
+  syncAppInertState();
 }
