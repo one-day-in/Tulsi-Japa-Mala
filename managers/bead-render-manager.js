@@ -95,10 +95,9 @@ export function createBeadRenderManager(config) {
       // Skip until layout is ready; next resize/RAF render will position correctly.
       return;
     }
-    // Keep counter logic unchanged while aligning step 0 to the terminal bead.
     const renderWheelPosition = Math.min(
       visualBeadMaxIndex,
-      Math.max(visualBeadMinIndex, wheelPosition - 1),
+      Math.max(visualBeadMinIndex, wheelPosition),
     );
 
     renderBeadLayout({
